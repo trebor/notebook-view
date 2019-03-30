@@ -13,7 +13,9 @@
   //Runtime.load(notebook, Inspector.into(document.body));
 
   Runtime.load(notebook, (cell) => {
+    console.log(cell.name, cell);
     if (cell.name === "page") {
+      console.log('found', cell.name);
       return {
         fulfilled: (value) => {
           document.body.appendChild(value);
