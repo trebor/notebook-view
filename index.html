@@ -14,7 +14,7 @@
 
   Runtime.load(notebook, (cell) => {
     console.log(cell.name, cell);
-    if (cell.name === "page") {
+    if (cell.name.startsWith('rendered_') {
       console.log('found', cell.name);
       return {
         fulfilled: (value) => {
