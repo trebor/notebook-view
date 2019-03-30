@@ -19,7 +19,10 @@
       return {
         fulfilled: (value) => {
           console.log('value', value);
-          document.body.appendChild(value);
+          if (value instanceof HTMLElement) {
+            console.log('element', value);
+            document.body.appendChild(value);
+          }
         }
       };
     }
