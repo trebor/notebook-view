@@ -13,8 +13,8 @@
   //Runtime.load(notebook, Inspector.into(document.body));
 
   Runtime.load(notebook, (cell) => {
-    console.log(cell.name, cell);
-    if (cell.name.startsWith('rendered_')) {
+    console.log('cell', cell);
+    if (cell.name && cell.name.startsWith('rendered_')) {
       console.log('found', cell.name);
       return {
         fulfilled: (value) => {
