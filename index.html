@@ -16,7 +16,7 @@
     if (cell.name === "page") {
       return {
         fulfilled: (value) => {
-          document.getElementById("page").appendChild(value);
+          document.body.appendChild(value);
         }
       };
     }
