@@ -10,5 +10,15 @@
 
   // Load the notebook, observing its cells with a default Inspector
   // that simply renders the value of each cell into the provided DOM node.
-  Runtime.load(notebook, Inspector.into(document.body));
+  //Runtime.load(notebook, Inspector.into(document.body));
+
+  Runtime.load(notebook, (cell) => {
+    if (cell.name === "page") {
+      return {
+        fulfilled: (value) => {
+          document.getElementById("page").appendChild(value);
+        }
+      };
+    }
+  });
 </script>
