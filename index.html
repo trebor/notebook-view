@@ -18,6 +18,7 @@
       console.log('found', cell.name);
       return {
         fulfilled: (value) => {
+          console.log('value', value);
           document.body.appendChild(value);
         }
       };
