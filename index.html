@@ -1,26 +1,16 @@
 <script type="module">
-  // Load the Observable runtime and inspector.
-  import {Runtime, Inspector} from "https://unpkg.com/@observablehq/notebook-runtime?module";
+  // Load the Observable Runtime.
+  import { Runtime } from "https://unpkg.com/@observablehq/notebook-runtime?module";
 
-  // Your notebook, compiled as an ES module.
+  // Import the notebook.
   import notebook from "https://api.observablehq.com/@trebor/portfolio.js";
 
-  // Or, your notebook, downloaded locally.
-//  import notebook from "./my-neat-notebook.js";
-
-  // Load the notebook, observing its cells with a default Inspector
-  // that simply renders the value of each cell into the provided DOM node.
-  //Runtime.load(notebook, Inspector.into(document.body));
-
+  // Load the notebook, and render any cells which start with "rendered_".
   Runtime.load(notebook, (cell) => {
-    console.log('cell', cell);
     if (cell.name && cell.name.startsWith('rendered_')) {
-      console.log('found', cell.name);
       return {
         fulfilled: (value) => {
-          console.log('value', value);
           if (value instanceof HTMLElement) {
-            console.log('element', value);
             document.body.appendChild(value);
           }
         }
