@@ -3,11 +3,12 @@
   import { Runtime } from "https://unpkg.com/@observablehq/notebook-runtime?module";
   
   const renderNotebook = notebook => {
-    console.log('notebook', notebook);
+    console.log('loaded notebook:', notebook);
   
     // Load the notebook, and render any cells which start with "rendered_".
-    Runtime.load(notebook, (cell) => {
-      if (cell.name && cell.name.startsWith('rendered_')) {
+    document.body.innerHTML = '';
+    Runtime.load(notebook, ({ name }) => {
+      if (name && (name.startsWith('rendered_') || name.startsWith('style_'))) {
         return {
           fulfilled: (value) => {
             if (value instanceof HTMLElement) {
