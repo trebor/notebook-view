@@ -1,6 +1,17 @@
 <script type="module">
   // Load the Observable Runtime.
   import { Runtime } from "https://unpkg.com/@observablehq/notebook-runtime?module";
+  
+  const getUrlParams() => {
+    var params = {};
+    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => params[key] = value);
+    return params;
+  }
+  
+  const getUrlParam = (name, defaultValue) => window.location.href.indexOf(name) === -1 ? defaultValue : getUrlVars()[name];
+
+  console.log('name', getUrlParam('name', '@trebor'));
+  console.log('notebook', getUrlParam('notebook', 'portfolio'));
 
   // Import the notebook.
   import notebook from "https://api.observablehq.com/@trebor/portfolio.js";
