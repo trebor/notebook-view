@@ -11,11 +11,8 @@
   const urlParams = getUrlParams();
   const getUrlParam = (name, defaultValue) => urlParams[name] || defaultValue;
 
-  console.log('name', getUrlParam('name', '@trebor'));
-  console.log('notebook', getUrlParam('notebook', 'portfolio'));
-
   // Import the notebook.
-  import notebook from "https://api.observablehq.com/@trebor/portfolio.js";
+  import notebook from `https://api.observablehq.com/${getUrlParam('name', '@trebor')}/${getUrlParam('notebook', 'portfolio')}.js`;
 
   // Load the notebook, and render any cells which start with "rendered_".
   Runtime.load(notebook, (cell) => {
