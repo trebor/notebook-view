@@ -8,7 +8,8 @@
     return params;
   }
   
-  const getUrlParam = (name, defaultValue) => window.location.href.indexOf(name) === -1 ? defaultValue : getUrlVars()[name];
+  const urlParams = getUrlParams();
+  const getUrlParam = (name, defaultValue) => urlParams[name] || defaultValue;
 
   console.log('name', getUrlParam('name', '@trebor'));
   console.log('notebook', getUrlParam('notebook', 'portfolio'));
