@@ -2,6 +2,23 @@
   // Load the Observable Runtime.
   import { Runtime } from "https://unpkg.com/@observablehq/notebook-runtime?module";
   
+  const renderNotebook = notebook => {
+    console.log('notebook', notebook);
+  
+    // Load the notebook, and render any cells which start with "rendered_".
+    Runtime.load(notebook, (cell) => {
+      if (cell.name && cell.name.startsWith('rendered_')) {
+        return {
+          fulfilled: (value) => {
+            if (value instanceof HTMLElement) {
+              document.body.appendChild(value);
+            }
+          }
+        };
+      }
+    });
+  });
+  
   const getUrlParams = () => {
     var params = {};
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => params[key] = value);
@@ -14,19 +31,12 @@
   // Import the notebook.
   const url = `https://api.observablehq.com/${getUrlParam('name', '@trebor')}/${getUrlParam('notebook', 'portfolio')}.js`;
   console.log('url', url);
-  const notebook = require(url);
-  console.log('notebook', notebook);
+  var notebook = null;
   
-  // Load the notebook, and render any cells which start with "rendered_".
-  Runtime.load(notebook, (cell) => {
-    if (cell.name && cell.name.startsWith('rendered_')) {
-      return {
-        fulfilled: (value) => {
-          if (value instanceof HTMLElement) {
-            document.body.appendChild(value);
-          }
-        }
-      };
-    }
-  });
+  import(url)
+    .then((module) => {
+      console.log('module', module);
+      renderNotebook(module);
+    });
+
 </script>
