@@ -30,13 +30,7 @@
 
   // Import the notebook.
   const url = `https://api.observablehq.com/${getUrlParam('name', '@trebor')}/${getUrlParam('notebook', 'portfolio')}.js`;
-  console.log('url', url);
-  var notebook = null;
+  console.log('loading notebook:', url);
   
-  import(url)
-    .then((module) => {
-      console.log('module', module);
-      renderNotebook(module);
-    });
-
+  import(url).then((module) => renderNotebook(module.default);
 </script>
