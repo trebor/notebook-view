@@ -12,6 +12,7 @@
         return {
           fulfilled: (value) => {
             if (value instanceof HTMLElement) {
+              console.log('append element:', name);
               document.body.appendChild(value);
             }
           }
