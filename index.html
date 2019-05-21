@@ -32,5 +32,5 @@
   const url = `https://api.observablehq.com/${getUrlParam('name', '@trebor')}/${getUrlParam('notebook', 'portfolio')}.js`;
   console.log('loading notebook:', url);
   
-  import(url).then((module) => renderNotebook(module.default);
+  import(url).then(module => renderNotebook(module.default));
 </script>
