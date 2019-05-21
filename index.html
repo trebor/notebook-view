@@ -2,7 +2,7 @@
   // Load the Observable Runtime.
   import { Runtime } from "https://unpkg.com/@observablehq/notebook-runtime?module";
   
-  const getUrlParams() => {
+  const getUrlParams = () => {
     var params = {};
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => params[key] = value);
     return params;
