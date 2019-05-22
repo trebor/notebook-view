@@ -3,22 +3,22 @@
   import { Runtime } from "https://unpkg.com/@observablehq/notebook-runtime?module";
   const children = {};
   const renderNotebook = notebook => {
-    console.log('loaded notebook:', notebook);
+    log('loaded notebook:', notebook);
   
     // Load the notebook, and render any cells which start with two underscores: "__".
     document.body.innerHTML = '';
     Runtime.load(notebook, ({ name }) => {
-      console.log('visited cell', name);
+      log('visited cell', name);
       if (name && name.startsWith('__')) {
         return {
           fulfilled: (value) => {
             if (value instanceof HTMLElement) {
               if (children[name]) {
                 document.body.replaceChild(value, children[name]);
-                console.log('replace:', name);
+                log('replace:', name);
               } else {
                 document.body.appendChild(value);
-                console.log('append:', name);
+                log('append:', name);
               }
               
               children[name] = value;
@@ -40,7 +40,14 @@
 
   // Import the notebook.
   const url = `https://api.observablehq.com/${getUrlParam('name', '@trebor')}/${getUrlParam('notebook', 'portfolio')}.js`;
-  console.log('loading notebook:', url);
+  log('loading notebook:', url);
   
   import(url).then(module => renderNotebook(module.default));
+  
+  const debug = getUrlParam('debug', false);
+  function log() {
+    if (debug) {
+      console.log.apply(this, arguments)
+    }
+  }
 </script>
