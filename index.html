@@ -1,7 +1,14 @@
 <script type="module">
-  // Load the Observable Runtime.
+  // load the observable runtime
   import { Runtime } from "https://unpkg.com/@observablehq/notebook-runtime?module";
+  
+  // globally signal that this notebook is being rendered in notebook-view
+  window.__notebook_view = true;
+  
+  // track children added to body
   const children = {};
+  
+  // render the notebook  
   const renderNotebook = notebook => {
     log('loaded notebook:', notebook);
   
@@ -28,24 +35,25 @@
       }
     });
   }
-  
+
+  // support url param extraction
   const getUrlParams = () => {
     var params = {};
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => params[key] = value);
     return params;
   }
-  
   const urlParams = getUrlParams();
   const getUrlParam = (name, defaultValue) => urlParams[name] || defaultValue;
-
   
   // establish param based values
   const debug = getUrlParam('debug', false);
   const url = `https://api.observablehq.com/${getUrlParam('name', '@trebor')}/${getUrlParam('notebook', 'portfolio')}.js`;
   log('loading notebook:', url);
   
+  // import the notebook
   import(url).then(module => renderNotebook(module.default));
   
+  // conditionaly log debugging messages
   function log() {
     if (debug) {
       console.log.apply(this, arguments)
