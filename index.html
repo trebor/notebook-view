@@ -1,20 +1,27 @@
 <script type="module">
   // Load the Observable Runtime.
   import { Runtime } from "https://unpkg.com/@observablehq/notebook-runtime?module";
-  
+  const children = {};
   const renderNotebook = notebook => {
     console.log('loaded notebook:', notebook);
   
     // Load the notebook, and render any cells which start with two underscores: "__".
     document.body.innerHTML = '';
     Runtime.load(notebook, ({ name }) => {
-      console.log('name', name);
+      console.log('visited cell', name);
       if (name && name.startsWith('__')) {
         return {
           fulfilled: (value) => {
             if (value instanceof HTMLElement) {
-              console.log('append element:', name);
-              document.body.appendChild(value);
+              if (children[name]) {
+                document.body.replaceChild(value, children[name]);
+                console.log('replace:', name);
+              } else {
+                document.body.appendChild(value);
+                console.log('append:', name);
+              }
+              
+              children[name] = value;
             }
           }
         };
