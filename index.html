@@ -38,13 +38,14 @@
   const urlParams = getUrlParams();
   const getUrlParam = (name, defaultValue) => urlParams[name] || defaultValue;
 
-  // Import the notebook.
+  
+  // establish param based values
+  const debug = getUrlParam('debug', false);
   const url = `https://api.observablehq.com/${getUrlParam('name', '@trebor')}/${getUrlParam('notebook', 'portfolio')}.js`;
   log('loading notebook:', url);
   
   import(url).then(module => renderNotebook(module.default));
   
-  const debug = getUrlParam('debug', false);
   function log() {
     if (debug) {
       console.log.apply(this, arguments)
