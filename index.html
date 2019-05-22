@@ -5,9 +5,10 @@
   const renderNotebook = notebook => {
     console.log('loaded notebook:', notebook);
   
-    // Load the notebook, and render any cells which start with "rendered_".
+    // Load the notebook, and render any cells which start with two underscores: "__".
     document.body.innerHTML = '';
     Runtime.load(notebook, ({ name }) => {
+      console.log('name', name);
       if (name && name.startsWith('__')) {
         return {
           fulfilled: (value) => {
