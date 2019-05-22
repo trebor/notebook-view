@@ -15,10 +15,11 @@
     // Load the notebook, and render any cells which start with two underscores: "__".
     document.body.innerHTML = '';
     Runtime.load(notebook, ({ name }) => {
-      log('visited cell', name);
+      log('cell name', name);
       if (name && name.startsWith('__')) {
         return {
-          fulfilled: (value) => {
+          fulfilled: value => {
+            log('cell value:', value);
             if (value instanceof HTMLElement) {
               if (children[name]) {
                 document.body.replaceChild(value, children[name]);
