@@ -8,7 +8,7 @@
     // Load the notebook, and render any cells which start with "rendered_".
     document.body.innerHTML = '';
     Runtime.load(notebook, ({ name }) => {
-      if (name && (name.startsWith('render_') || name.startsWith('style_'))) {
+      if (name && name.startsWith('__')) {
         return {
           fulfilled: (value) => {
             if (value instanceof HTMLElement) {
