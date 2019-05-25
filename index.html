@@ -19,7 +19,7 @@
       if (name && name.startsWith('__')) {
         return {
           fulfilled: value => {
-            log('cell value:', value);
+            log(name, 'value:', value);
             if (value instanceof HTMLElement || value instanceof SVGElement) {
               if (children[name]) {
                 document.body.replaceChild(value, children[name]);
