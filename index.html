@@ -14,7 +14,9 @@
   
     // Load the notebook, and render any cells which start with two underscores: "__".
     document.body.innerHTML = '';
-    Runtime.load(notebook, ({ name }) => {
+    Runtime.load(notebook, (cell) => {
+      log('cell', cell);
+      const { name } = cell;
       log('cell name', name);
       if (name && name.startsWith('__')) {
         return {
