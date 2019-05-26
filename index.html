@@ -20,7 +20,7 @@
         return {
           fulfilled: value => {
             log(name, 'value:', value);
-//            if (value instanceof HTMLElement || value instanceof SVGElement) {
+            if (value instanceof HTMLElement || value instanceof SVGElement) {
               if (children[name]) {
                 document.body.replaceChild(value, children[name]);
                 log('replace:', name);
@@ -30,9 +30,9 @@
               }
               
               children[name] = value;
-//            } else {
-//              log('unexpected cell type', name, value);
-//            }
+            } else {
+              log('unexpected cell type', name, value);
+            }
           },
           rejected: error => {
             log('rejected cell', name, error.message);
