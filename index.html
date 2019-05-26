@@ -18,7 +18,7 @@
       log('cell', cell);
       const { name } = cell;
       log('cell name', name);
-      if (name && (name.startsWith('__') | name.startsWith(viewof __'))) {
+      if (name && (name.startsWith('__') || name.startsWith(viewof __'))) {
         return {
           fulfilled: value => {
             log(name, 'value:', value);
