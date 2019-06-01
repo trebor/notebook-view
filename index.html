@@ -10,7 +10,9 @@
   
   // render the notebook  
   const renderNotebook = notebook => {
-    log('loaded notebook:', notebook);
+    cosnt [ id, version ] = notebook.id.split('@');
+    console.log(`loaded notebook: ${id} version: ${version}`);
+    log(notebook);
   
     // Load the notebook, and render any cells which start with two underscores: "__".
     document.body.innerHTML = '';
