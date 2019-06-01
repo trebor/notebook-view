@@ -10,7 +10,7 @@
   
   // render the notebook  
   const renderNotebook = notebook => {
-    cosnt [ id, version ] = notebook.id.split('@');
+    const [ id, version ] = notebook.id.split('@');
     console.log(`loaded notebook: ${id} version: ${version}`);
     log(notebook);
   
