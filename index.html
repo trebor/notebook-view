@@ -1,24 +1,20 @@
 <script type="module">
   // load the observable runtime
-  import { Runtime } from "https://unpkg.com/@observablehq/notebook-runtime?module";
-  
+  import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+
   // globally signal that this notebook is being rendered in notebook-view
   window.__notebook_view = true;
-  
+
   // track children added to body
   const children = {};
-  
-  // render the notebook  
+
+  // render the notebook
   const renderNotebook = notebook => {
-    const [ id, version ] = notebook.id.split('@');
-    console.log(`loaded notebook: ${id} version: ${version}`);
     log(notebook);
-  
+
     // Load the notebook, and render any cells which start with two underscores: "__".
     document.body.innerHTML = '';
-    Runtime.load(notebook, (cell) => {
-      log('cell', cell);
-      const { name } = cell;
+    (new Runtime).module(notebook, name => {
       log('cell name', name);
       if (name && (name.startsWith('__') || name.startsWith('viewof __'))) {
         return {
@@ -32,7 +28,7 @@
                 document.body.appendChild(value);
                 log('append:', name);
               }
-              
+
               children[name] = value;
             } else {
               log('unexpected cell type', name, value);
@@ -54,15 +50,15 @@
   }
   const urlParams = getUrlParams();
   const getUrlParam = (name, defaultValue) => urlParams[name] || defaultValue;
-  
+
   // establish param based values
   const debug = getUrlParam('debug', false);
-  const url = `https://api.observablehq.com/${getUrlParam('name', 'd')}/${getUrlParam('notebook', 'ad46968afb5a1946')}.js`;
+  const url = `https://api.observablehq.com/${getUrlParam('name', 'd')}/${getUrlParam('notebook', 'ad46968afb5a1946')}.js?v=3`;
   log('loading notebook:', url);
-  
+
   // import the notebook
   import(url).then(module => renderNotebook(module.default));
-  
+
   // conditionaly log debugging messages
   function log() {
     if (debug) {
