@@ -1,6 +1,6 @@
 <script type="module">
   // load the observable runtime
-  import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+  import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js";
 
   // globally signal that this notebook is being rendered in notebook-view
   window.__notebook_view = true;
@@ -53,7 +53,7 @@
 
   // establish param based values
   const debug = getUrlParam('debug', false);
-  const url = `https://api.observablehq.com/${getUrlParam('name', 'd')}/${getUrlParam('notebook', 'ad46968afb5a1946')}.js?v=3`;
+  const url = `https://api.observablehq.com/${getUrlParam('name', 'd')}/${getUrlParam('notebook', 'ad46968afb5a1946')}.js?v=4`;
   log('loading notebook:', url);
 
   // import the notebook
